@@ -4,21 +4,21 @@
 
 ## Contributing to the Peter Moss Leukemia Research Foundation Respositories
 
-We encourage bug fixes and enhancements submitted by the community and there are a number of ways you can contribute towards the Peter Moss Acute Myeloid & Lymphoblastic Leukemia Classifiers repository.
+We encourage bug fixes and enhancements submitted by the community and there are a number of ways you can contribute towards the Peter Moss ALL-IDB Classifiers repository.
 
 ![Feature Proposal](https://www.leukemiaresearchfoundation.ai/github/media/images/Contributing-Feature-Proposal.jpg)
 
 ## Bug reports
 
-If you would like to contribute bug fixes or make the team aware of bugs you have identified in the project, please raise a **Bug report** issue in the [Acute Myeloid & Lymphoblastic Leukemia Classifiers repository issues](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your bug report / bug fix(es) which will be reviewed by the team who will communicate through your issue.
+If you would like to contribute bug fixes or make the team aware of bugs you have identified in the project, please raise a **Bug report** issue in the [ALL-IDB Classifiers repository issues](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your bug report / bug fix(es) which will be reviewed by the team who will communicate through your issue.
 
 ## Feature requests
 
-If you would like to contribute by suggesting features for the project, please raise a **Feature request** issue in the [Acute Myeloid & Lymphoblastic Leukemia Classifiers repository issues](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature request which will be reviewed by the team who will communicate through your issue.
+If you would like to contribute by suggesting features for the project, please raise a **Feature request** issue in the [ALL-IDB Classifiers repository issues](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/issues/new) section. A template is provided that will allow you to provide your suggestions for your feature request which will be reviewed by the team who will communicate through your issue.
 
 ## Feature proposals
 
-If you would like to contribute new features to the project, please raise a **Feature proposal** issue in the [Acute Myeloid & Lymphoblastic Leukemia Classifiers repository issues](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature proposal which will be reviewed by the team who will communicate through your issue.
+If you would like to contribute new features to the project, please raise a **Feature proposal** issue in the [ALL-IDB Classifiers repository issues](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/issues/new) section. A template is provided that will allow you to provide your suggestions for your feature proposal which will be reviewed by the team who will communicate through your issue.
 
 &nbsp;
 
