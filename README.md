@@ -26,7 +26,7 @@ The following Peter Moss Acute Myeloid & Lymphoblastic Leukemia AI Research proj
 
 The following AML/ALL AI Student Program Students & Research Interns have contributed towards this repository:
 
-- [Taru Jain](https://www.leukemiaresearchfoundation.ai/students/student/taru-jain/profile "Taru Jain") - Pre-final year undergraduate pursuing B.Tech in IT
+- [Taru Jain](https://www.leukemiaresearchfoundation.ai/student-program/student/taru-jain "Taru Jain") - Pre-final year undergraduate pursuing B.Tech in IT
 
 &nbsp;
 
