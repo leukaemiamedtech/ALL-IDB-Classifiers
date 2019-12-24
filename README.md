@@ -36,7 +36,7 @@ We use SemVer for versioning. For the versions available, see [Releases](https:/
 
 # License
 
-This project is licensed under the **MIT License** - see the [LICENSE](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/LICENSE "LICENSE") file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/LICENSE.md "LICENSE") file for details.
 
 # Bugs/Issues
 
