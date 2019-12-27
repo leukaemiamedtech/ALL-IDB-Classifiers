@@ -34,7 +34,7 @@ To do this, make sure you have Git installed, navigate to the location you want 
   $ git clone https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers.git
 ```
 
-Once you have used the command above you will see a directory called **ALL-IDB-Classifiers** in the location you chose to clone to. In terminal, navigate to the **ALL-IDB-Classifiers/Python/Tensorflow/allCnn** directory, this is your project root directory.
+Once you have used the command above you will see a directory called **ALL-IDB-Classifiers** in the location you chose to clone to. In terminal, navigate to the **ALL-IDB-Classifiers/Python/Tensorflow/2-0/Classification/ALL-Papers/** directory, this is your project root directory.
 
 &nbsp;
 
