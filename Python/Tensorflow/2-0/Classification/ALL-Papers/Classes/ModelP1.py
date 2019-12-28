@@ -105,8 +105,6 @@ class Model():
             self.Helpers.logger.info("Metrics: " + name + " " + str(value))
         print()
         
-        plt.legend(loc='lower right')
-        
     def plot_metrics(self):
         """ Plots our metrics. 
         
