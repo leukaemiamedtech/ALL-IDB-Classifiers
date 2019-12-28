@@ -120,7 +120,7 @@ Now you need to move your ALL-IDB1 and ALL-IDB2 datasets to the **Model/Data** d
 
 The configuration should be fairly self explanatory. We have the model_1 object containing two objects, data and train. In data we have the configuration related to preparing the training and validation data. We use a seed to make sure our results are reproducable. In train we have the configuration related to training the model.
 
-Notice that the batch rate is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
+Notice that the batch amount is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
 
 In my case, the configuration above was the best out of my testing, but you may find different configurations work better. 
 Feel free to update these settings to your liking, and please let us know of your experiences.
