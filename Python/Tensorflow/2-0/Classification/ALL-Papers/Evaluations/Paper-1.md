@@ -217,6 +217,7 @@ The evaluate_model() function evaluates the model, and displays the values for t
 
 Our network matches the architecture proposed in the paper exactly, with exception to the optimizer and loss function as this info was not provided in the paper.
 
+```
 Model: "AllCnn"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -240,6 +241,7 @@ activation (Activation)      (None, 2)                 0
 Total params: 62,312
 Trainable params: 62,312
 Non-trainable params: 0
+```
 
 ## Training the model
 
