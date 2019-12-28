@@ -14,15 +14,15 @@ Here we will replicate the network architecture and data split proposed in the [
 
 ## ALL-IDB
 
-You you need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
+You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
 
 ### ALL_IDB1 
 
-In this paper, [this page](https://homes.di.unimi.it/scotti/all/#datasets) is used, one of the datsets from the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset.
+In this paper, [ALL-IDB1](https://homes.di.unimi.it/scotti/all/#datasets) is used, one of the datsets from the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset.
 
 "The ALL_IDB1 version 1.0 can be used both for testing segmentation capability of algorithms, as well as the classification systems and image preprocessing methods. This dataset is composed of 108 images collected during September, 2005. It contains about 39000 blood elements, where the lymphocytes has been labeled by expert oncologists. The images are taken with different magnifications of the microscope ranging from 300 to 500."  
 
-In this project we will also use ALL_IDB1. The dataset is very small, with 108 examples.
+In this project we will also use ALL_IDB1. The dataset is very small, with 108 examples: 49 positive and 59 negative.
 
 &nbsp;
 
@@ -32,7 +32,7 @@ In this project we will also use ALL_IDB1. The dataset is very small, with 108 e
 
 _Fig 1. Proposed architecture ([Source](https://airccj.org/CSCP/vol7/csit77505.pdf "Source"))_
 
-In [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System"), the authors propose a simple 4 layer Convolutional Neural Network. 
+In [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System"), the authors propose a simple 5 layer Convolutional Neural Network. 
 
 > "In this work, we proposed a network contains 4 layers. The first 3 layers for detecting features
 > and the other two layers (Fully connected and Softmax) are for classifying the features. The input
@@ -56,15 +56,13 @@ In this paper the authors used the ALL-IDB1 dataset, and did not use data augmen
 
 ### Proposed Training / Validation Sets
 
-In the paper the authors use the **ALL_IDB1** dataset. The paper proposes the following training and validation sets proposed in the paper, where **Normal cell** refers to ALL negative examples and **Abnormal cell** refers to ALL positive examples.
+In the paper the authors use the **ALL_IDB1** dataset. The paper proposes the following training and validation sets, where **Normal cell** refers to ALL negative examples and **Abnormal cell** refers to ALL positive examples.
 
-```
 |               | Training Set | Test Set |
 | ------------- | ------------ | -------- |
 | Normal cell   | 40           | 19       |
 | Abnormal cell | 40           | 9        |
 | **Total**     | **80**       | **28**   |
-```
 
 ### Architecture
 
@@ -122,7 +120,7 @@ Now you need to move your ALL-IDB1 and ALL-IDB2 datasets to the **Model/Data** d
 
 The configuration should be fairly self explanatory. We have the model_1 object containing two objects, data and train. In data we have the configuration related to preparing the training and validation data. We use a seed to make sure our results are reproducable. In train we have the configuration related to training the model.
 
-Notice that the batch rate is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible. The seed is used to to ensure that the results should be easily replicated. 
+Notice that the batch rate is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
 
 In my case, the configuration above was the best out of my testing, but you may find different configurations work better. 
 Feel free to update these settings to your liking, and please let us know of your experiences.
@@ -151,7 +149,7 @@ Our functionality for this network can be found mainly in the **Classes** direct
 
 #### DataP1.py
 
-[DataP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/DataP1.py "DataP1.py") is a data helper class for the Paper 1 Evaluation. The class provides the functionality for sorting and preparing your training and validation data. the functions in this class reproduce the training and validation data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.The main functions are briefly explained below:
+[DataP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/DataP1.py "DataP1.py") is a data helper class for the Paper 1 Evaluation. The class provides the functionality for sorting and preparing your training and validation data. the functions in this class reproduce the training and validation data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. The main functions are briefly explained below:
 
 ##### data_and_labels_sort()
 
@@ -159,7 +157,7 @@ The data_and_labels_sort() function sorts the data into two Python lists, data[]
 
 ##### data_and_labels_prepare()
 
-The data_and_labels_sort() function prepares the data and labels for training, converting to Numpy arrays (np.array()).
+The data_and_labels_sort() function prepares the data and labels for training.
 
 ##### convert_data()
 
@@ -219,7 +217,6 @@ The evaluate_model() function evaluates the model, and displays the values for t
 
 Our network matches the architecture proposed in the paper exactly, with exception to the optimizer and loss function as this info was not provided in the paper.
 
-```
 Model: "AllCnn"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -243,7 +240,6 @@ activation (Activation)      (None, 2)                 0
 Total params: 62,312
 Trainable params: 62,312
 Non-trainable params: 0
-```
 
 ## Training the model
 
