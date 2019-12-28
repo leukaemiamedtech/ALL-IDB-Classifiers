@@ -6,6 +6,10 @@
 
 The ALL-IDB Classifers repository hosts a collection of research using Fabio Scottie's ALL-IDB (Acute Lymphoblastic Leukemia Image Database for Image Processing) dataset. The repository provides tutorials and codes for creating Convolutional Neural Networks (CNN) & Generative Adversarial Networks (GAN) created with various languages and frameworks.
 
+## ALL-IDB
+
+You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
+
 &nbsp;
 
 # ALL Papers Evaluation
