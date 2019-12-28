@@ -1,0 +1,15 @@
+{
+    "model_1": {
+        "data": {
+            "dim": 50,
+            "file_type": ".jpg",
+            "seed": 32,
+            "train_dir": "Model/Data/ALL-IDB-1"
+        },
+        "train": {
+            "batch": 80,
+            "epochs": 75,
+            "val_steps": 3
+        }
+    }
+}
