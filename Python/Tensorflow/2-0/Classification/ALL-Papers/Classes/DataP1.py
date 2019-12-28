@@ -101,8 +101,6 @@ class Data():
             self.labels.append(self.data[i][1])
             self.data[i] = image.astype(np.float32)/255.
 
-            i += 1
-
         self.convert_data()
         self.encode_labels()
         
