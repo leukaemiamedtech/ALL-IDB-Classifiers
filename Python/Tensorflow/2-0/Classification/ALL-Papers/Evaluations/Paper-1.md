@@ -120,7 +120,7 @@ Now you need to move your ALL-IDB1 and ALL-IDB2 datasets to the **Model/Data** d
 
 The configuration should be fairly self explanatory. We have the model_1 object containing two objects, data and train. In data we have the configuration related to preparing the training and validation data. We use a seed to make sure our results are reproducable. In train we have the configuration related to training the model.
 
-Notice that the batch rate is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
+Notice that the batch amount is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
 
 In my case, the configuration above was the best out of my testing, but you may find different configurations work better. 
 Feel free to update these settings to your liking, and please let us know of your experiences.
@@ -143,47 +143,33 @@ The code for this project consists of 4 main Python files and a configuration fi
 
 Our functionality for this network can be found mainly in the **Classes** directory. 
 
-#### Helpers.py
+|    Class | Description |
+| ------------- | ------------ |
+| Helpers.py   | [Helpers.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/Helpers.py "Helpers.py") is a helper class for the Tensorflow 2.0 ALL Papers project. The class loads the configuration and logging that the project uses.      |
+| DataP1.py | [DataP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/DataP1.py "DataP1.py") is a data helper class for the Paper 1 Evaluation. The class provides the functionality for sorting and preparing your training and validation data. the functions in this class reproduce the training and validation data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.       |     |
+| ModelP1.py | [ModelP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/ModelP1.py "ModelP1.py") is a model helper class for the Paper 1 Evaluation. The class provides the functionality for creating our CNN.       |
 
-[Helpers.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/Helpers.py "Helpers.py") is a helper class for the Tensorflow 2.0 ALL Papers project. The class loads the configuration and logging that the project uses.
+&nbsp;
 
-#### DataP1.py
+### Functions
 
-[DataP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/DataP1.py "DataP1.py") is a data helper class for the Paper 1 Evaluation. The class provides the functionality for sorting and preparing your training and validation data. the functions in this class reproduce the training and validation data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. The main functions are briefly explained below:
+ The main functions are briefly explained below:
 
-##### data_and_labels_sort()
+|    Class | Function |  Description |
+| ------------- | ------------ | -------- |
+| DataP1.py | data_and_labels_sort() | The data_and_labels_sort() function sorts the data into two Python lists, data[] and labels[]. |
+| DataP1.py | data_and_labels_prepare() | The data_and_labels_prepare() function prepares the data and labels for training. |
+| DataP1.py | convert_data() | The convert_data() function converts the training data to a numpy array. |
+| DataP1.py | encode_labels() | The encode_labels() function One Hot Encodes the labels. |
+| DataP1.py | shuffle() | The shuffle() function shuffles the data helping to eliminate bias. |
+| DataP1.py | get_split() | The get_split() function splits the prepared data and labels into traiing and validation data. |
+| ModelP1.py | build_network() | The build_network() function creates the network architecture proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. |
+| ModelP1.py | compile_and_train() | The compile_and_train() function creates the network architecture proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. |
+| ModelP1.py | evaluate_model() | The evaluate_model() function evaluates the model, and displays the values for the metrics we specified. |
 
-The data_and_labels_sort() function sorts the data into two Python lists, data[] and labels[].
+&nbsp;
 
-##### data_and_labels_prepare()
-
-The data_and_labels_sort() function prepares the data and labels for training.
-
-##### convert_data()
-
-The convert_data() function converts the training data to a numpy array.
-
-##### encode_labels()
-
-The encode_labels() function One Hot Encodes the labels.
-
-##### shuffle()
-
-The shuffle() function shuffles the data helping to eliminate bias.
-
-##### get_split()
-
-The get_split() function splits the prepared data and labels into traiing and validation data.
-
-#### ModelP1.py
-
-[ModelP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/ModelP1.py "ModelP1.py") is a model helper class for the Paper 1 Evaluation. The class provides the functionality for creating our CNN. The main functions are briefly explained below:
-
-##### build_network()
-
-The build_network() function creates the network architecture proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.
-
-###### Metrics
+## Metrics
 
 We can use metrics to measure the effectiveness of our model. In this network we will use the following metrics:
 
@@ -200,18 +186,7 @@ tf.keras.metrics.FalseNegatives(name='fn')
 
 These metrics will be displayed and plotted once our model is trained.
 
-##### compile_and_train()
-
-The compile_and_train() function uses **model.compile()** and **model.fit()** to compile and train our model. For compiling we use the **tf.keras.optimizers.Adam()** optimizer with a learning rate of **1e-3**, and **binary crossentropy** as the loss function. 
-
-model.fit() takes the training and test data, number of validation steps and number of epochs, and trains the model.
-
-##### evaluate_model()
-
-The evaluate_model() function evaluates the model, and displays the values for the metrics we specified.
-
 &nbsp;
-
 
 ## Model Summary
 
@@ -243,6 +218,8 @@ Trainable params: 62,312
 Non-trainable params: 0
 ```
 
+&nbsp;
+
 ## Training the model
 
 Now you are ready to train your model, make sure you are in the project root and execute the following command:
@@ -268,6 +245,8 @@ Epoch 75/75
 32/80 [===========>..................] - ETA: 0s - loss: 0.0063 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 796us/sample - loss: 0.0152 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.1846 - val_acc: 0.9286 - val_precision: 0.9286 - val_recall: 0.9286 - val_auc: 0.9872 - val_tp: 78.0000 - val_fp: 6.0000 - val_tn: 78.0000 - val_fn: 6.0000
 <tensorflow.python.keras.callbacks.History object at 0x7f485c520c18>
 ```
+
+&nbsp;
 
 ### Model evaluation
 
