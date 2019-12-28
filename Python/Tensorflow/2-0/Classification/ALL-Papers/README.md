@@ -26,7 +26,7 @@ To get started with this project there are a couple of things for you to collect
 
 ### Gain access to ALL-IDB
 
-You you need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
+You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
 
 ### Clone the repository
 
@@ -50,27 +50,7 @@ Once you have used the command above you will see a directory called **ALL-IDB-C
 
 _Fig 1. Proposed Architecture ([Source](https://airccj.org/CSCP/vol7/csit77505.pdf "Source"))_
 
-In [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System"), the authors propose a simple 4 layer Convolutional Neural Network. 
-
-> "In this work, we proposed a network contains 4 layers. The first 3 layers for detecting features
-> and the other two layers (Fully connected and Softmax) are for classifying the features. The input
-> image has the size [50x50x3]. The receptive field (or the filter size) is 5x5. The stride is 1 then we move the filters one pixel at a time. The zero-padding is 2. It will allow us to control the spatial
-> size of the output image (we will use it to exactly preserve the spatial size of the input volume so
-> the input and output width and height are the same). During the experiment, we found that in our
-> case, altering the size of original image during the convolution lead to decrease the accuracy
-> about 40%. Thus the output image after convolution layer 1 has the same size with the input
-> image."
-
-> "The convolution layer 2 has the same structure with the convolution layer 1. The filter size is 5x5,
-> the stride is 1 and the zero-padding is 2. The number of feature maps (the channel or the depth) in
-> our case is 30. If the number of feature maps is lower or higher than 30, the accuracy will
-> decrease 50%. By experiment, we found the accuracy also decrease 50% if we remove
-> Convolution layer 2.""
-
-> "The Max-Pooling layer 25x25 has Filter size is 2 and stride is 2. The fully connected layer has 2
-> neural. Finally, we use the Softmax layer for the classification. "
-
-In this paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2, along with a custom network. 
+In [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System"), the authors propose a simple 5 layer Convolutional Neural Network. In the  paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2, along with a custom network. 
 
 You can find the results and more info about the basic (Non augmented/modified) paper 1 evaluation [here](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "here").
 
@@ -98,7 +78,7 @@ We use SemVer for versioning. For the versions available, see [Releases](https:/
 
 # Authors
 
-- [Adam Milton-Barker](https://www.leukemiaresearchfoundation.ai/team/adam-milton-barker/profile "Adam Milton-Barker") - Peter Moss Leukemia Research Foundation Founder & Intel Software Innovator, Barcelona, Spain
+- [Adam Milton-Barker](https://www.leukemiaresearchfoundation.ai/team/adam-milton-barker/profile "Adam Milton-Barker") - Peter Moss Leukemia Research Foundation, Barcelona, Spain
 
 See full list of [contributors](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/contributors "contributors") that were involved in this project.
 
