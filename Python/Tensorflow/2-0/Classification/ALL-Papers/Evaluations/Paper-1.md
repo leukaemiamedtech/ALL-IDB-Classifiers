@@ -145,7 +145,7 @@ Our functionality for this network can be found mainly in the **Classes** direct
 
 |    Class | Description |
 | ------------- | ------------ |
-| Helpers.py   |            | [Helpers.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/Helpers.py "Helpers.py") is a helper class for the Tensorflow 2.0 ALL Papers project. The class loads the configuration and logging that the project uses.      |
+| Helpers.py   | [Helpers.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/Helpers.py "Helpers.py") is a helper class for the Tensorflow 2.0 ALL Papers project. The class loads the configuration and logging that the project uses.      |
 | DataP1.py | [DataP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/DataP1.py "DataP1.py") is a data helper class for the Paper 1 Evaluation. The class provides the functionality for sorting and preparing your training and validation data. the functions in this class reproduce the training and validation data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.       |     |
 | ModelP1.py | [ModelP1.py](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Classes/ModelP1.py "ModelP1.py") is a model helper class for the Paper 1 Evaluation. The class provides the functionality for creating our CNN.       |
 
@@ -158,7 +158,7 @@ Our functionality for this network can be found mainly in the **Classes** direct
 |    Class | Function |  Description |
 | ------------- | ------------ | -------- |
 | DataP1.py | data_and_labels_sort() | The data_and_labels_sort() function sorts the data into two Python lists, data[] and labels[]. |
-| DataP1.py | data_and_labels_prepare() | The data_and_labels_sort() function prepares the data and labels for training. |
+| DataP1.py | data_and_labels_prepare() | The data_and_labels_prepare() function prepares the data and labels for training. |
 | DataP1.py | convert_data() | The convert_data() function converts the training data to a numpy array. |
 | DataP1.py | encode_labels() | The encode_labels() function One Hot Encodes the labels. |
 | DataP1.py | shuffle() | The shuffle() function shuffles the data helping to eliminate bias. |
