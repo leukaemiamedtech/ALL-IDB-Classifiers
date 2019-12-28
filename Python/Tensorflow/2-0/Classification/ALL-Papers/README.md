@@ -2,6 +2,8 @@
 
 ## ALL-IDB Classifiers
 
+&nbsp;
+
 # ALL Papers Evaluation
 
 ## Introduction
@@ -12,7 +14,9 @@ The purpose of the project is to recreate the networks proposed in the papers, a
 
 The papers evaluated in this project are:
 -  **PAPER 1:** [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") by Thanh.TTP, Giao N. Pham, Jin-Hyeok Park, Kwang-Seok Moon, Suk-Hwan Lee, and Ki-Ryong Kwon
-- **PAPER 2:** [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon
+- **PAPER 2:** [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon.
+
+Inspired by the [work](https://github.com/AdamMiltonBarker/AML-ALL-Classifiers/blob/master/Python/_Keras/QuantisedCode/QuantisedCode.ipynb "work") done by [Amita Kapoor](https://www.leukemiaresearchfoundation.ai/team/amita-kapoor/profile "Amita Kapoor") and [Taru Jain](https://www.leukemiaresearchfoundation.ai/student-program/student/taru-jain "Taru Jain") and my previous [projects](https://github.com/AMLResearchProject/AML-ALL-Classifiers/tree/master/Python/_Keras/AllCNN "projects") based on their work. 
 
 &nbsp;
 
@@ -66,7 +70,11 @@ In [Acute Leukemia Classification Using Convolution Neural Network In Clinical D
 > "The Max-Pooling layer 25x25 has Filter size is 2 and stride is 2. The fully connected layer has 2
 > neural. Finally, we use the Softmax layer for the classification. "
 
-In this paper the authors did not use data augmentation to increase the training and testing data, however, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2 and compare results. 
+In this paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2, along with a custom network. 
+
+You can find the results and more info about the basic (Non augmented/modified) paper 1 evaluation [here](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "here").
+
+&nbsp;
 
 # Contributing
 
