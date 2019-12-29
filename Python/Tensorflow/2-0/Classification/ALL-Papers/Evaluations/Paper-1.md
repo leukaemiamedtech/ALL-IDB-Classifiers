@@ -266,7 +266,7 @@ Epoch 75/75
 
 &nbsp;
 
-## Obeservations
+## Observations
 
 We can notice that metrics for Accuracy, Precision & Recall are the same, this could be due to the small size of the dataset. In the second part of this evaluation we will augment the data using the methods proposed in Paper 2, [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon, to see if the increase in data corrects this issue. We can also notice a spiking effect in the metric plots, this could also be related to the size of the dataset. In the next part of this evaluation we will also experiment with batch normalization and dropout to see how it helps our results. There is more tweaking that can be done on this network, but for now this is a good start.
 
