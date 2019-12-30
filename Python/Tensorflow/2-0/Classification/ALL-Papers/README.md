@@ -42,6 +42,19 @@ Once you have used the command above you will see a directory called **ALL-IDB-C
 
 &nbsp;
 
+# ALL Papers Evaluation
+
+This project evaluates a number of different research papers on detecting Acute Lymphoblastic Leukemia using Convolutional Neurals Networks and the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. 
+
+Inspired by the [work](https://github.com/AmlResearchProject/AML-ALL-Classifiers/blob/master/Python/_Keras/QuantisedCode/QuantisedCode.ipynb "work") done by [Amita Kapoor](https://www.leukemiaresearchfoundation.ai/team/amita-kapoor/profile "Amita Kapoor") and [Taru Jain](https://www.leukemiaresearchfoundation.ai/student-program/student/taru-jain "Taru Jain") and my previous [projects](https://github.com/AMLResearchProject/AML-ALL-Classifiers/tree/master/Python/_Keras/AllCNN "projects") based on their work. 
+
+The purpose of the project is to recreate the networks proposed in the papers, and compare results between the different types of networks. Papers used in this evaluation are as follows:
+
+-  **PAPER 1:** [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") by Thanh.TTP, Giao N. Pham, Jin-Hyeok Park, Kwang-Seok Moon, Suk-Hwan Lee, and Ki-Ryong Kwon
+- **PAPER 2:** [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon.
+
+You can view the parts that make up the evaluations here:
+
 | Evaluation     | Status | Link |
 | -------------------- | ----- | ---------- |
 | Paper 1 Evaluation | Complete   | [Paper 1 Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "Paper 1 Evaluation")     |
