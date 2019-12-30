@@ -42,17 +42,10 @@ Once you have used the command above you will see a directory called **ALL-IDB-C
 
 &nbsp;
 
-## Paper 1 Evaluation
-
-### Introduction
-
-<img src="https://www.leukemiaresearchfoundation.ai/github/media/images/paper_1_architecture.png" alt="Proposed Architecture" />
-
-_Fig 1. Proposed Architecture ([Source](https://airccj.org/CSCP/vol7/csit77505.pdf "Source"))_
-
-In [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System"), the authors propose a simple 5 layer Convolutional Neural Network. In the  paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2, along with a custom network. 
-
-You can find the results and more info about the basic (Non augmented/modified) paper 1 evaluation [here](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "here").
+| Evaluation     | Status | Link |
+| -------------------- | ----- | ---------- |
+| Paper 1 Evaluation | Complete   | [Paper 1 Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "Paper 1 Evaluation")     |
+| Paper 1 Augmentation Evaluation | Complete   | [Paper 1 Augmentation Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1-Augmentation.md "Paper 1 Augmentation Evaluation")     |
 
 &nbsp;
 
