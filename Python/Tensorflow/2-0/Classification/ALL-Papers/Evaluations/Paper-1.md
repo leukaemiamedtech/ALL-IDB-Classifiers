@@ -8,7 +8,9 @@
 
 # Paper 1 Evaluation
 
-Here we will replicate the network architecture and data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper and compare our results. In the paper, the authors do not go into the evaluation of the model, however, in this project we will go deeper into how well the model actually does. A useful tutorial while creating this network was the [Classification on imbalanced data](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data) tutorial on Tensorflow's website.
+Here we will replicate the network architecture and data split proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper and compare our results. In the paper, the authors do not go into the evaluation of the model, however, in this project we will go deeper into how well the model actually does. 
+
+Inspired by the [work](https://github.com/AmlResearchProject/AML-ALL-Classifiers/blob/master/Python/_Keras/QuantisedCode/QuantisedCode.ipynb "work") done by [Amita Kapoor](https://www.leukemiaresearchfoundation.ai/team/amita-kapoor/profile "Amita Kapoor") and [Taru Jain](https://www.leukemiaresearchfoundation.ai/student-program/student/taru-jain "Taru Jain") and my previous [projects](https://github.com/AMLResearchProject/AML-ALL-Classifiers/tree/master/Python/_Keras/AllCNN "projects") based on their work. 
 
 &nbsp;
 
@@ -52,7 +54,9 @@ In [Acute Leukemia Classification Using Convolution Neural Network In Clinical D
 > "The Max-Pooling layer 25x25 has Filter size is 2 and stride is 2. The fully connected layer has 2
 > neural. Finally, we use the Softmax layer for the classification. "
 
-In this paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In my evaluation I use the dataset split proposed in paper 1, and the augmented dataset from paper 2, along with a custom network.
+In this paper the authors used the ALL-IDB1 dataset, and did not use data augmentation to increase the training and testing data. However, in paper 2 the authors state that they had poor results using the model from paper 1 with augmented data. In the full evaluation we will use the dataset split proposed in paper 1, the augmented dataset from paper 2, and a custom network. This part of the evaluation wi
+
+There is information about the network not provided by the authors such as learning rate, loss function, optimizer and seed, in this evaluation we will experiment with different values for these settings.
 
 ### Proposed Training / Validation Sets
 
@@ -76,6 +80,12 @@ We will build a Convolutional Neural Network, as shown in Fig 1, with an archite
 
 &nbsp;
 
+## Hardware
+
+In this evaluation I used 2 machines, a Mac 2,8 GHz Intel Core i5 and an Ubuntu machine with an NVIDIA GTX 1050 ti to compare results. Both machines gave different results, with the Mac being more consistent and accurate. 
+
+&nbsp; 
+
 ## Clone the repository
 
 First of all you should clone the [ALL-IDB Classifiers](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers "ALL-IDB Classifiers") repository from the [Peter Moss Leukemia Research Foundation](https://github.com/LeukemiaResearchFoundation "Peter Moss Leukemia Research Foundation") Github Organization. 
@@ -90,9 +100,9 @@ Once you have used the command above you will see a directory called **ALL-IDB-C
 
 &nbsp;
 
-## Move the datasets
+## Move the dataset
 
-Now you need to move your ALL-IDB1 and ALL-IDB2 datasets to the **Model/Data** directory.
+Now you need to move your ALL-IDB1 dataset to the **ALL-IDB18** directopry in the **Model/Data** directory.
 
 &nbsp;
 
@@ -105,25 +115,38 @@ Now you need to move your ALL-IDB1 and ALL-IDB2 datasets to the **Model/Data** d
     "model_1": {
         "data": {
             "dim": 50,
+            "dim_augmentation": 100,
             "file_type": ".jpg",
-            "seed": 32,
+            "rotations_augmentation": 3,
+            "seed_adam": 32,
+            "seed_adam_augmentation": 64,
+            "seed_rmsprop": 3,
+            "seed_rmsprop_augmentation": 6,
+            "split": 0.255,
+            "split_augmentation": 0.3,
             "train_dir": "Model/Data/ALL-IDB-1"
         },
         "train": {
             "batch": 80,
-            "epochs": 75,
-            "val_steps": 3
+            "batch_augmentation": 100,
+            "decay_adam": 1e-6,
+            "decay_rmsprop": 1e-6,
+            "epochs": 150,
+            "epochs_augmentation": 150,
+            "learning_rate_adam": 1e-4,
+            "learning_rate_rmsprop": 1e-4,
+            "val_steps": 10,
+            "val_steps_augmentation": 3
         }
     }
 }
 ```
 
-The configuration should be fairly self explanatory. We have the model_1 object containing two objects, data and train. In data we have the configuration related to preparing the training and validation data. We use a seed to make sure our results are reproducable. In train we have the configuration related to training the model.
+We have the model_1 object containing two objects, data and train. In data we have the configuration related to preparing the training and validation data. We use a seed to make sure our results are reproducible. In train we have the configuration related to training the model.
 
-Notice that the batch amount is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parmeters. This is done to try and reduce the spiking effect in our model's metrics. Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
+Notice that the batch amount is 80, this is equal to the amount of data in the training data meaning that the network will see all samples in the dataset before updating the parameters. This was done to try and reduce the spiking effect in our model's metrics. In my case though, removing it actually made the network perform better.  Other things that can help are batch normalization, more data and dropout, but in this project we are going to replicate the work proposed in the paper as close as possible.
 
-In my case, the configuration above was the best out of my testing, but you may find different configurations work better. 
-Feel free to update these settings to your liking, and please let us know of your experiences.
+In my case, the configuration above was the best out of my testing, but you may find different configurations work better. Feel free to update these settings to your liking, and please let us know of your experiences.
 
 &nbsp;
 
@@ -164,7 +187,7 @@ Our functionality for this network can be found mainly in the **Classes** direct
 | DataP1.py | shuffle() | The shuffle() function shuffles the data helping to eliminate bias. |
 | DataP1.py | get_split() | The get_split() function splits the prepared data and labels into traiing and validation data. |
 | ModelP1.py | build_network() | The build_network() function creates the network architecture proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. |
-| ModelP1.py | compile_and_train() | The compile_and_train() function creates the network architecture proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. |
+| ModelP1.py | compile_and_train() | The compile_and_train() function compiles and trains the model proposed in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. |
 | ModelP1.py | evaluate_model() | The evaluate_model() function evaluates the model, and displays the values for the metrics we specified. |
 
 &nbsp;
@@ -184,7 +207,7 @@ tf.keras.metrics.TrueNegatives(name='tn'),
 tf.keras.metrics.FalseNegatives(name='fn') 
 ```
 
-These metrics will be displayed and plotted once our model is trained.
+These metrics will be displayed and plotted once our model is trained.  A useful tutorial while working on the metrics was the [Classification on imbalanced data](https://www.tensorflow.org/tutorials/structured_data/imbalanced_data) tutorial on Tensorflow's website.
 
 &nbsp;
 
@@ -222,86 +245,189 @@ Non-trainable params: 0
 
 ## Training the model
 
-Now you are ready to train your model, make sure you are in the project root and execute the following command:
+Now you are ready to train your model. In my evaluation I trained on both a Mac 2,8 GHz Intel Core i5, and an Ubuntu machine with an NVIDIA GTX 1050 ti. The results below will show both the Mac and the Ubuntu machine. 
+
+### Ubuntu/GTX 1050 ti
+
+#### Adam Optimizer
+
+<img src="../Model/metrics.png" alt="Adam Optimizer Results" />
+
+_Fig 2. Ubuntu/GTX 1050 ti Adam Optimizer Results_
+
+First we will test using the Adam optimizer and configuration. Make sure you are in the project root and execute the following command:
 
 ```
-python3 AllCnn.py 1 0
+python3 AllCnn.py Adam 1 False
 ```
 
-This will start the classifier in Paper 1 basic mode, recreating the network and data split proposed in the paper. First the data functions are called, preparing our train and validation data. Next the model functions are called, creating the network, compiling and training the network, and finally evaluating the trained model.
+The above command launches the AllCnn.py program telling it to use the Adam optimizer, to use the model from paper 1, and not to augment the data. This will recreate the network architecture and data split proposed in the paper. First the training and validation data is prepared, then the network is created, compiled, trained and evaluated.
+
+Using the Adam Optimizer on Ubuntu/GTX 1050 ti gave stable results across runs. 
 
 ```
-Epoch 70/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0752 - acc: 0.9688 - precision: 0.9688 - recall: 0.9688 - auc: 0.9971 - tp: 31.0000 - fp: 1.0000 - tn: 31.0000 - fn: 180/80 [==============================] - 0s 797us/sample - loss: 0.0445 - acc: 0.9875 - precision: 0.9875 - recall: 0.9875 - auc: 0.9992 - tp: 79.0000 - fp: 1.0000 - tn: 79.0000 - fn: 1.0000 - val_loss: 0.3601 - val_acc: 0.8571 - val_precision: 0.8571 - val_recall: 0.8571 - val_auc: 0.9554 - val_tp: 72.0000 - val_fp: 12.0000 - val_tn: 72.0000 - val_fn: 12.0000
-Epoch 71/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0621 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 796us/sample - loss: 0.0312 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.1556 - val_acc: 0.9643 - val_precision: 0.9643 - val_recall: 0.9643 - val_auc: 0.9885 - val_tp: 81.0000 - val_fp: 3.0000 - val_tn: 81.0000 - val_fn: 3.0000
-Epoch 72/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0201 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 793us/sample - loss: 0.0159 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.1405 - val_acc: 0.9643 - val_precision: 0.9643 - val_recall: 0.9643 - val_auc: 0.9911 - val_tp: 81.0000 - val_fp: 3.0000 - val_tn: 81.0000 - val_fn: 3.0000
-Epoch 73/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0190 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 791us/sample - loss: 0.0168 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.2682 - val_acc: 0.8929 - val_precision: 0.8929 - val_recall: 0.8929 - val_auc: 0.9719 - val_tp: 75.0000 - val_fp: 9.0000 - val_tn: 75.0000 - val_fn: 9.0000
-Epoch 74/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0100 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 786us/sample - loss: 0.0179 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.2188 - val_acc: 0.9286 - val_precision: 0.9286 - val_recall: 0.9286 - val_auc: 0.9821 - val_tp: 78.0000 - val_fp: 6.0000 - val_tn: 78.0000 - val_fn: 6.0000
-Epoch 75/75
-32/80 [===========>..................] - ETA: 0s - loss: 0.0063 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 32.0000 - fp: 0.0000e+00 - tn: 32.0000 - f80/80 [==============================] - 0s 796us/sample - loss: 0.0152 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - tp: 80.0000 - fp: 0.0000e+00 - tn: 80.0000 - fn: 0.0000e+00 - val_loss: 0.1846 - val_acc: 0.9286 - val_precision: 0.9286 - val_recall: 0.9286 - val_auc: 0.9872 - val_tp: 78.0000 - val_fp: 6.0000 - val_tn: 78.0000 - val_fn: 6.0000
-<tensorflow.python.keras.callbacks.History object at 0x7f485c520c18>
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: loss 0.1922929584980011
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: acc 0.9285714
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: precision 0.9285714
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: recall 0.9285714
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: auc 0.98214287
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: tp 26.0
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: fp 2.0
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: tn 26.0
+2019-12-30 02:56:16,567 - Model - INFO - Metrics: fn 2.0
 ```
 
-&nbsp;
+In these results, our model has achieved 0.9285714 accuracy (93%) using the Adam optimizer and configuration. In the paper the authors achieved 96.43%.
 
-### Model evaluation
-
-<img src="../Model/metrics.png" alt="Model evaluation metrics" />
-
-```
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: loss 0.1846487820148468
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: acc 0.9285714
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: precision 0.9285714
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: recall 0.9285714
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: auc 0.98724496
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: tp 26.0
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: fp 2.0
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: tn 26.0
-2019-12-28 06:33:24,799 - Model - INFO - Metrics: fn 2.0
-```
-
-&nbsp;
-
-## Obeservations
-
-We can notice that metrics for Accuracy, Precision & Recall are the same, this could be due to the small size of the dataset. In the second part of this evaluation we will augment the data using the methods proposed in Paper 2, [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon, to see if the increase in data corrects this issue. We can also notice a spiking effect in the metric plots, this could also be related to the size of the dataset. In the next part of this evaluation we will also experiment with batch normalization and dropout to see how it helps our results. There is more tweaking that can be done on this network, but for now this is a good start.
-
-&nbsp;
-
-## Results (75 epochs)
-
-| Loss          | Accuracy     | Precision     | Recall       | AUC          |
-| ------------- | ------------ | ------------- | ------------ | ------------ |
-| 0.131 (~0.13) | 0.929 (~93%) | 0.929 (~0.93%) | 0.929 (~93%) | 0.984 (~1.0) |
-
-&nbsp;
-
-## ALL-IDB figures of merit
-
-On the report the [results page](https://homes.di.unimi.it/scotti/all/results.php) on the ALL-IDB website, you can find info about suggested reporting for projects using the ALL-IDB dataset. Once your model has finished training, these stats will be displayed. Please note you have to close the metrics image before the program can complete. 
-
-```
-2019-12-28 06:34:08,792 - Model - INFO - True Positives: 11(39.285714285714285%)
-2019-12-28 06:34:08,792 - Model - INFO - False Positives: 0(0.0%)
-2019-12-28 06:34:08,793 - Model - INFO - True Negatives: 15(53.57142857142857%)
-2019-12-28 06:34:08,793 - Model - INFO - False Negatives: 2(7.142857142857143%)
-2019-12-28 06:34:08,793 - Model - INFO - Specificity: 1.0
-2019-12-28 06:34:08,793 - Model - INFO - Misclassification: 2(7.142857142857143%)
-```
+On the [report the results page](https://homes.di.unimi.it/scotti/all/results.php) on the ALL-IDB website, you can find info about suggested reporting for projects using the ALL-IDB dataset. Once your model has finished training, these stats will be displayed. Please note you have to close the metrics image before the program can complete. 
 
 | Figures of merit     | Value | Percentage |
 | -------------------- | ----- | ---------- |
 | True Positives       | 11    | 39.30%     |
-| False Positives      | 0     | 0.00%      |
-| True Negatives       | 15    | 0.00%      |
+| False Positives      | 0     | 0%         |
+| True Negatives       | 15    | 53.57%     |
 | False Negatives      | 2     | 7.14%      |
 | Misclassification    | 2     | 7.14%      |
 | Sensitivity / Recall | 0.929 | 93%        |
 | Specificity          | 1     | 100%       |
+
+#### RMSprop Optimizer
+
+<img src="../Model/metrics-rms.png" alt="RMSprop Optimizer Results" />
+
+_Fig 3. Ubuntu/GTX 1050 ti RMSprop Optimizer Results_
+
+Next we will test using the RMSprop optimizer and configuration. Make sure you are in the project root and execute the following command:
+
+```
+python3 AllCnn.py RMSprop 1 False
+```
+
+The above command launches the AllCnn.py program telling it to use the RMSprop optimizer and configuration, to use the model from paper 1, and not to augment the data. This will recreate the network architecture and data split proposed in the paper. First the training and validation data is prepared, then the network is created, compiled, trained and evaluated.
+
+Using the RMSprop Optimizer on Ubuntu/GTX 1050 ti did not give stable results across runs. In my testing the results would range from 0.89285713 - 0.9285714. These results were similar to the results from the Adam optimizer.  
+
+```
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: loss 0.15272846817970276
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: acc 0.9285714
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: precision 0.9285714
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: recall 0.9285714
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: auc 0.9872449
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: tp 26.0
+2019-12-30 05:01:18,642 - Model - INFO - Metrics: fp 2.0
+2019-12-30 05:01:18,643 - Model - INFO - Metrics: tn 26.0
+2019-12-30 05:01:18,643 - Model - INFO - Metrics: fn 2.0
+```
+
+| Figures of merit     | Value | Percentage |
+| -------------------- | ----- | ---------- |
+| True Positives       | 13    | 46.43%     |
+| False Positives      | 0     | 0%         |
+| True Negatives       | 13    | 36.43%     |
+| False Negatives      | 2     | 7.14%      |
+| Misclassification    | 2     | 7.14%      |
+| Sensitivity / Recall | 0.929 | 93%        |
+| Specificity          | 1     | 100%       |
+
+### Mac 2,8 GHz Intel Core i5
+
+#### Adam Optimizer
+
+<img src="../Model/metrics-adam-mac-i5.png" alt="Adam Optimizer Results Mac i5" />
+
+_Fig 4. Mac 2,8 GHz Intel Core i5 Adam Optimizer Results_
+
+Using the Adam Optimizer on the Mac 2,8 GHz Intel Core i5 gave stable results across runs. 
+
+```
+2019-12-30 04:15:24,179 - Model - INFO - Metrics: loss 0.11819522082805634
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: acc 0.9285714
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: precision 0.9285714
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: recall 0.9285714
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: auc 0.99489796
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: tp 26.0
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: fp 2.0
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: tn 26.0
+2019-12-30 04:15:24,180 - Model - INFO - Metrics: fn 2.0
+```
+Our model achieved 0.9285714 accuracy (93%) using the Adam optimizer and configuration on Mac 2,8 GHz Intel Core i5. In the paper the authors achieved 96.43% accuracy.
+
+| Figures of merit     | Value | Percentage |
+| -------------------- | ----- | ---------- |
+| True Positives       | 14    | 50.0%      |
+| False Positives      | 1     | 3.57%      |
+| True Negatives       | 12    | 42.86%     |
+| False Negatives      | 1     | 3.57%      |
+| Misclassification    | 2     | 7.14%      |
+| Sensitivity / Recall | 0.929 | 93%        |
+| Specificity          | 0.923 | 92.3%      |
+
+#### RMSprop Optimizer
+
+<img src="../Model/metrics-rms-mac-i5.png" alt="RMSprop Optimizer Results" />
+
+_Fig 5. Mac 2,8 GHz Intel Core i5 RMSprop Optimizer Results_
+
+Using the RMSprop Optimizer on the Mac 2,8 GHz Intel Core i5 gave stable results across runs. In my testing, using RMSprop on the Mac i5 matched the accuracy from the network in the paper.
+
+```
+2019-12-30 18:28:03,308 - Model - INFO - Metrics: loss 0.07469029724597931
+2019-12-30 18:28:03,308 - Model - INFO - Metrics: acc 0.96428573
+2019-12-30 18:28:03,308 - Model - INFO - Metrics: precision 0.96428573
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: recall 0.96428573
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: auc 0.99872446
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: tp 27.0
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: fp 1.0
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: tn 27.0
+2019-12-30 18:28:03,309 - Model - INFO - Metrics: fn 1.0
+```
+
+| Figures of merit     | Value | Percentage |
+| -------------------- | ----- | ---------- |
+| True Positives       | 9    |  32.14%      |
+| False Positives      | 0     | 0%      |
+| True Negatives       | 18    | 64.28%     |
+| False Negatives      | 1     | 3.57%      |
+| Misclassification    | 1     | 3.57%      |
+| Sensitivity / Recall | 0.96428 | 96.43%        |
+| Specificity          | 1 | 100%      |
+
+
+&nbsp;
+
+## Observations
+
+The first observation that is immediately obvious is the fact that accuracy, precision and recall are all equal. This could be due to the small size of the dataset, or it could be a bug in our code. With no information of this sort in the paper, it is hard to know if the authors encountered this issue. We can also notice a spiking effect in the metric plots, this could also be related to the size of the dataset. And the last observation is that using RMSprop on the GPU gives extremely different results. 
+
+In the second part of this evaluation we will augment the data using the methods proposed in Paper 2, [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon, to see if the increase in data corrects this issue.
+
+&nbsp;
+
+## Summary
+
+### Adam Optimizer NVIDIA 1050 ti GPU (Stable)
+
+| Loss          | Accuracy     | Precision     | Recall       | AUC          | TP | TN | FP | FN |
+| ------------- | ------------ | ------------- | ------------ | ------------ | -- | -- | -- | -- |
+| 0.192 (~0.19) | 0.927 (~93%) | 0.927 (~0.92%) | 0.927 (~92%) | 0.982 (~98%)| 11 | 15 | 0  | 2  |
+
+### RMSprop Optimizer NVIDIA 1050 ti GPU (Unstable)
+
+| Loss          | Accuracy     | Precision     | Recall       | AUC          | TP | TN | FP | FN |
+| ------------- | ------------ | ------------- | ------------ | ------------ | -- | -- | -- | -- |
+| 0.152 (~0.15) | 0.927 (~93%) | 0.927 (~0.92%) | 0.927 (~92%) | 0.982 (~98%)| 13 | 13 | 0  | 2  |
+
+### Adam Optimizer Mac 2,8 GHz Intel Core i5 (Stable)
+
+| Loss          | Accuracy     | Precision     | Recall       | AUC          | TP | TN | FP | FN |
+| ------------- | ------------ | ------------- | ------------ | ------------ | -- | -- | -- | -- |
+| 0.118 (~0.12) | 0.929 (~93%) | 0.929 (~0.93%) | 0.929 (~93%) | 0.994 (~99%)| 14 | 12 | 1  | 1  |
+
+### RMSprop Optimizer Mac 2,8 GHz Intel Core i5 (Stable)
+
+| Loss           | Accuracy        | Precision     | Recall       | AUC          | TP | TN | FP | FN |
+| -------------  | ------------    | ------------- | ------------ | ------------ | -- | -- | -- | -- |
+| 0.0746 (~0.07) | 0.96428 (~96.43)| 0.96428 (~96.43 | 0.96428 (~96.43 | 0.999 (~100%)| 9 | 18 | 0  | 1  |
 
 &nbsp;
 
