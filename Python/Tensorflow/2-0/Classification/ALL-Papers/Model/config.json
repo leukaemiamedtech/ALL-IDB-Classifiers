@@ -2,14 +2,28 @@
     "model_1": {
         "data": {
             "dim": 50,
+            "dim_augmentation": 100,
             "file_type": ".jpg",
-            "seed": 32,
+            "rotations_augmentation": 3,
+            "seed_adam": 32,
+            "seed_adam_augmentation": 64,
+            "seed_rmsprop": 3,
+            "seed_rmsprop_augmentation": 6,
+            "split": 0.255,
+            "split_augmentation": 0.3,
             "train_dir": "Model/Data/ALL-IDB-1"
         },
         "train": {
             "batch": 80,
-            "epochs": 75,
-            "val_steps": 3
+            "batch_augmentation": 100,
+            "decay_adam": 1e-6,
+            "decay_rmsprop": 1e-6,
+            "epochs": 150,
+            "epochs_augmentation": 150,
+            "learning_rate_adam": 1e-4,
+            "learning_rate_rmsprop": 1e-4,
+            "val_steps": 10,
+            "val_steps_augmentation": 3
         }
     }
 }
