@@ -10,7 +10,7 @@
 # Title:         Paper 1 Data Helper Class
 # Description:   Data helper class for the Paper 1 Evaluation.
 # License:       MIT License
-# Last Modified: 2019-12-28
+# Last Modified: 2019-12-30
 #
 ############################################################################################
 
@@ -20,7 +20,6 @@ import random
 import os
 
 import numpy as np
-import tensorflow as tf
 import matplotlib.pyplot as plt
 
 from pathlib import Path
@@ -33,6 +32,7 @@ from scipy import ndimage
 from skimage import transform as tm
 
 from Classes.Helpers import Helpers
+from Classes.Augmentation import Augmentation
 
 
 class Data():
@@ -41,15 +41,24 @@ class Data():
     Data helper class for the Paper 1 Evaluation.
     """
 
-    def __init__(self, model):
+    def __init__(self, model, optimizer, do_augmentation = False):
         """ Initializes the Data class. """
 
         self.Helpers = Helpers("Data", False)
         self.model_type = model
-
-        seed(self.Helpers.confs[self.model_type]["data"]["seed"])
-        tf.random.set_seed(self.Helpers.confs[self.model_type]["data"]["seed"])
-
+        self.optimizer = optimizer
+        
+        if do_augmentation == False:
+            self.seed = self.Helpers.confs[self.model_type]["data"]["seed_" + self.optimizer]
+            self.dim = self.Helpers.confs[self.model_type]["data"]["dim"]
+        else:
+            self.Augmentation = Augmentation(self.model_type, self.optimizer)
+            self.seed = self.Helpers.confs[self.model_type]["data"]["seed_" + self.optimizer + "_augmentation"]
+            self.dim = self.Helpers.confs[self.model_type]["data"]["dim_augmentation"]
+            
+        seed(self.seed)
+        random.seed(self.seed)
+        
         self.data = []
         self.labels = []
 
@@ -79,7 +88,7 @@ class Data():
 
             self.data.append((fpath, 0 if "_0" in fname else 1))
         
-        random.Random(self.Helpers.confs[self.model_type]["data"]["seed"]).shuffle(self.data)
+        random.Random(self.seed).shuffle(self.data)
 
         self.Helpers.logger.info("All data: " + str(count))
         self.Helpers.logger.info("Positive data: " + str(pos_count))
@@ -92,7 +101,7 @@ class Data():
             fpath = str(self.data[i][0])
 
             image = self.resize(
-                fpath, self.Helpers.confs[self.model_type]["data"]["dim"])
+                fpath, self.dim)
 
             if image.shape[2] == 1:
                 image = np.dstack(
@@ -105,6 +114,67 @@ class Data():
         self.encode_labels()
         
         self.Helpers.logger.info("All data: " + str(self.data.shape))
+        self.Helpers.logger.info("All Labels: " + str(self.labels.shape))
+
+    def data_and_labels_augmentation_prepare(self):
+        """ Sorts the training data for your model. """
+
+        neg_count = 0
+        pos_count = 0
+        
+        augmented_data = []
+        augmented_labels = []
+
+        for i in range(len(self.data)):
+            fpath = str(self.data[i][0])
+            fname = os.path.basename(fpath)
+            label = self.data[i][1]
+
+            if "_0" in fname:
+                neg_count += 9
+            else:
+                pos_count += 9
+
+            image = self.resize(fpath, self.dim)
+
+            if image.shape[2] == 1:
+                image = np.dstack(
+                    [image, image, image]) 
+
+            augmented_data.append(image.astype(np.float32)/255.)
+            augmented_labels.append(label)
+
+            augmented_data.append(self.Augmentation.grayscale(image))
+            augmented_labels.append(label)
+            
+            augmented_data.append(self.Augmentation.equalize_hist(image))
+            augmented_labels.append(label)
+
+            horizontal, vertical = self.Augmentation.reflection(image)
+            augmented_data.append(horizontal)
+            augmented_labels.append(label)
+
+            augmented_data.append(vertical)
+            augmented_labels.append(label)
+
+            augmented_data.append(self.Augmentation.gaussian(image))
+            augmented_labels.append(label)
+
+            augmented_data.append(self.Augmentation.translate(image))
+            augmented_labels.append(label)
+
+            augmented_data.append(self.Augmentation.shear(image))
+            augmented_labels.append(label)
+
+            augmented_data, augmented_labels =self.Augmentation.rotation(image, label, augmented_data, augmented_labels)
+        
+        self.data = augmented_data
+        self.labels = augmented_labels
+
+        self.convert_data()
+        self.encode_labels()
+        
+        self.Helpers.logger.info("Augmented data: " + str(self.data.shape))
         self.Helpers.logger.info("All Labels: " + str(self.labels.shape))
 
     def convert_data(self):
@@ -125,14 +195,13 @@ class Data():
     def shuffle(self):
         """ Shuffles the data and labels. """
 
-        self.data, self.labels = shuffle(self.data, self.labels,
-                                         random_state=self.Helpers.confs[self.model_type]["data"]["seed"])
+        self.data, self.labels = shuffle(self.data, self.labels, random_state=self.seed)
 
     def get_split(self):
         """ Splits the data and labels creating training and validation datasets. """
 
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.data, self.labels, test_size=0.255, random_state=self.Helpers.confs[self.model_type]["data"]["seed"])
+            self.data, self.labels, test_size=0.255, random_state=self.seed)
 
         self.Helpers.logger.info("Training data: " + str(self.X_train.shape))
         self.Helpers.logger.info("Training labels: " + str(self.y_train.shape))

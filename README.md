@@ -25,7 +25,10 @@ The purpose of the project is to recreate the networks proposed in the papers, a
 
 You can view the parts that make up the evaluations here:
 
-- **PAPER 1:** [Paper 1 Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "Paper 1 Evaluation") author [Adam Milton-Barker](https://www.leukemiaresearchfoundation.ai/team/adam-milton-barker/profile "Adam Milton-Barker")[Adam Milton-Barker](https://www.leukemiaresearchfoundation.ai/team/adam-milton-barker/profile "Adam Milton-Barker").
+| Evaluation     | Status | Link |
+| -------------------- | ----- | ---------- |
+| Paper 1 Evaluation | Complete   | [Paper 1 Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "Paper 1 Evaluation")     |
+| Paper 1 Augmentation Evaluation | Complete   | [Paper 1 Augmentation Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1-Augmentation.md "Paper 1 Augmentation Evaluation")     |
 
 &nbsp;
 
