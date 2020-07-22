@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2018 Peter Moss Leukemia Research Foundation
+Copyright (c) 2018 Asociacion De Investigacion En Inteligencia Artificial Para La Leucemia Peter Moss
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
