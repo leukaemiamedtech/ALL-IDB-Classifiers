@@ -56,8 +56,8 @@ This project is made up of evaluations of the stated research papers. These eval
 
 | Project     | Status | Link |
 | -------------------- | ----- | ---------- |
-| Paper 1 Evaluation | Complete   | [Paper 1 Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1.md "Paper 1 Evaluation")     |
-| Paper 1 Augmentation Evaluation | Complete   | [Paper 1 Augmentation Evaluation](https://github.com/LeukemiaResearchFoundation/ALL-IDB-Classifiers/blob/master/Python/Tensorflow/2-0/Classification/ALL-Papers/Evaluations/Paper-1-Augmentation.md "Paper 1 Augmentation Evaluation")     |
+| Paper 1 Evaluation | Complete   | [Paper 1 Evaluation](Projects/Paper-1/Evaluations/Paper-1.md "Paper 1 Evaluation")     |
+| Paper 1 Augmentation Evaluation | Complete   | [Paper 1 Augmentation Evaluation](Projects/Paper-1/Evaluations/Paper-1-Augmentation.md "Paper 1 Augmentation Evaluation")     |
 
 &nbsp;
 
